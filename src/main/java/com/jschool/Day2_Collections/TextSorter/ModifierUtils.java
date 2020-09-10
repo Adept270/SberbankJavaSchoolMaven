@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class ModifierUtils {
     // посчитать кол-во различных слов в файле
-    public static int wordCounter(String text) {
+    public static int wordCounter_(String text) {
         Set<String> wordSet = new HashSet<>(Arrays.asList(text.split(" ")));
         return wordSet.size();
     }
