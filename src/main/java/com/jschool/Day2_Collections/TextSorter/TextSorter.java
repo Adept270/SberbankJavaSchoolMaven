@@ -8,7 +8,6 @@ import java.util.*;
 public class TextSorter {
     public static final File FILE = new File("C:/Users/16727641/IdeaProjects/JavaSchoolSberbank/ResourcesFiles/Day2_test.txt");
 
-    //TODO: добавить нормализацию, чтобы возвращались только слова, без чисел знаков препинания и переноса строки.
     public static String textHolder(File file) {
 
         List<String> allLines = new ArrayList<>();
@@ -25,7 +24,7 @@ public class TextSorter {
             stringBuilder.append(System.lineSeparator());
         }
 
-        return stringBuilder.toString();
+        return stringBuilder.toString().replaceAll("\\p{Punct}|\\d", "").toLowerCase();
     }
 
     //Подсчитайте количество различных слов в файле
