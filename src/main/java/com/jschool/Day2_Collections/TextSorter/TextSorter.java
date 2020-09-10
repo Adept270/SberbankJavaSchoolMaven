@@ -1,41 +1,12 @@
 package com.jschool.Day2_Collections.TextSorter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
 public class TextSorter {
-    public static void main(String[] args) throws IOException {
-        File file = new File("C:/Users/16727641/IdeaProjects/JavaSchoolSberbank/ResourcesFiles/Day2_test.txt");
-//        System.out.println(textHolder(file));
-//
-//        System.out.println("-------------\nКол-во слов: " + wordCounter(textHolder(file)));
-//
-//        System.out.println("-----------");
-
-//        for (String s : sortedUniqueWords(textHolder(file))) {
-//            System.out.println(s);
-//        }
-
-//        for (Map.Entry<String, Integer> entry : uniqueWordCounter(textHolder(file)).entrySet()) {
-//            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-//        }
-
-
-//        for (String s : reversStrings(textHolder(file))) {
-//            System.out.println(s);
-//        }
-     //   printReversStrings(textHolder(file));
-        //sortedUniqueWords(textHolder(file));
-
-
-
-    }
-
+    public static final File FILE = new File("C:/Users/16727641/IdeaProjects/JavaSchoolSberbank/ResourcesFiles/Day2_test.txt");
 
     //TODO: добавить нормализацию, чтобы возвращались только слова, без чисел знаков препинания и переноса строки.
     public static String textHolder(File file) {
@@ -107,13 +78,44 @@ public class TextSorter {
     public static void printReversStrings(String textString) {
 
         Deque<String> stringDeque = new ArrayDeque<>();
-         for (String s : textString.split(System.lineSeparator())) {
-             stringDeque.push(s);
-         }
+        for (String s : textString.split(System.lineSeparator())) {
+            stringDeque.push(s);
+        }
 
-         for (String s : stringDeque) {
-             System.out.println(s);
-         }
+        for (String s : stringDeque) {
+            System.out.println(s);
+        }
+
+    }
+
+    //Реализуйте свой Iterator для обхода списка в обратном порядке
+    public static <T> Iterator<T> reversIterator(Iterable<T> iterable) {
+        Iterator<T> iter = iterable.iterator();
+        List<T> reversList = new ArrayList<>();
+
+        while (iter.hasNext()) {
+            reversList.add(0, iter.next());
+        }
+
+        return reversList.iterator();
+
+    }
+
+    //Выведите на экран строки, номера которых задаются пользователем в произвольном порядке
+    public static void printRequestString(String textString) {
+        List<String> textArrayList = new ArrayList<>(Arrays.asList(textString.split(System.lineSeparator())));
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите номер строки");
+
+        while (true) {
+            try {
+                System.out.println(textArrayList.get(scanner.nextInt()));
+            } catch (Exception e) {
+                System.out.println("Введена строка, отсутствующая в файле");
+                break;
+            }
+        }
 
     }
 
