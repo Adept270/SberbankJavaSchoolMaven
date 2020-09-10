@@ -1,4 +1,4 @@
-package com.jschool.Day1.TemperatureConverter;
+package com.jschool.Day1_OOP.TemperatureConverter;
 
 public class Main {
     private static class Converter {

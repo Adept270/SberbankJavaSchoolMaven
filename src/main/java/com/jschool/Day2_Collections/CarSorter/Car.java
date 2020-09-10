@@ -1,4 +1,4 @@
-package com.jschool.Day2.CarSorter;
+package com.jschool.Day2_Collections.CarSorter;
 
 public class Car {
     private String model;

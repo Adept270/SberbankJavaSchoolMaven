@@ -1,4 +1,4 @@
-package com.jschool.Day1.Inheritance;
+package com.jschool.Day1_OOP.Inheritance;
 
 public class Main {
 

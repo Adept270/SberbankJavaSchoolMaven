@@ -1,4 +1,4 @@
-package com.jschool.Day2.CarSorter;
+package com.jschool.Day2_Collections.CarSorter;
 
 import org.junit.Test;
 

@@ -1,9 +1,8 @@
-package com.jschool.Day2.CarSorter;
+package com.jschool.Day2_Collections.CarSorter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CarGrouper {
     static ArrayList<Car> list = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.jschool.Day1.BubbleSort;
+package com.jschool.Day1_OOP.BubbleSort;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package com.jschool.Day2.TextSorter;
+package com.jschool.Day2_Collections.TextSorter;
 
 import java.util.Arrays;
 import java.util.HashSet;
