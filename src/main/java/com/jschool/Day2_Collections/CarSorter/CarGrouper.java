@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CarGrouper {
+
+    /** В статическом блоке наполняем коллекцию данными из задания     */
     static ArrayList<Car> list = new ArrayList<>();
 
     static {
@@ -17,6 +19,11 @@ public class CarGrouper {
         list.add(new Car("Тойота", "седан"));
     }
 
+    /** Группировка по объектов Car в список по типу
+     *
+     * @param rowlist
+     * @return HashMap<String, List<String>>
+     */
     public static HashMap<String, List<String>> carGroup(List<Car> rowlist) {
 
         HashMap<String, List<String>> resultList = new HashMap<>();

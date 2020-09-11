@@ -1,6 +1,7 @@
 package com.jschool.Day2_Collections.CarSorter;
 
 public class Car {
+
     private String model;
     private String type;
 

@@ -23,3 +23,10 @@
 hs_err_pid*
 # Default ignored files
 /workspace.xml
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+target/
