@@ -83,7 +83,7 @@ public class TextSorter {
      *
      * @param iterable
      * @param <T>
-     * @return Iterator
+     * @return Iterator - выполняет обход коллекции в обратном порядке
      */
     public static <T> Iterator<T> reversIterator(Iterable<T> iterable) {
         Iterator<T> iter = iterable.iterator();
@@ -99,7 +99,7 @@ public class TextSorter {
 
     /**Выводит на экран строки, номера которых задаются пользователем в произвольном порядке
      *
-     * @param textString
+     * @param textString - анализируемый текст
      */
     public static void printRequestString(String textString) {
         List<String> textArrayList = new ArrayList<>(Arrays.asList(textString.split(System.lineSeparator())));

@@ -21,8 +21,8 @@ public class CarGrouper {
 
     /** Группировка по объектов Car в список по типу
      *
-     * @param rowlist
-     * @return HashMap<String, List<String>>
+     * @param rowlist - лист объектов Car
+     * @return HashMap<K, V> - группировка где K - тип кузова, V - лист авто данного типа
      */
     public static HashMap<String, List<String>> carGroup(List<Car> rowlist) {
 

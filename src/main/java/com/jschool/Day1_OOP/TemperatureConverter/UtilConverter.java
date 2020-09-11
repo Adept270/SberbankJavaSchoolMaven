@@ -2,7 +2,7 @@ package com.jschool.Day1_OOP.TemperatureConverter;
 
 public class UtilConverter {
 
-    // Создан утилитарный класс для конвертации температуры.
+    /** Утилитарный класс для конвертации температуры. */
     private static class Converter {
 
         public static double toFahrenheit(double celsius) {

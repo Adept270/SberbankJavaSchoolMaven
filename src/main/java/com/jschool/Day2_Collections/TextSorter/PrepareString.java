@@ -12,8 +12,8 @@ public class PrepareString {
 
     /**Служебный класс. Используется для получения строки из файла, для ее дальнейшей сортировки.
      *
-     * @param file
-     * @return String
+     * @param file - файл, содержащий текс для обработки
+     * @return String - текст, полученный в результате чтения файла
      */
     public static String textHolder(File file) {
 
