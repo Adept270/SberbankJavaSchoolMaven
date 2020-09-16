@@ -1,0 +1,58 @@
+package com.jschool.Day4_Exceptions.Terminal;
+
+import com.jschool.Day4_Exceptions.ClientAccount;
+import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountBalanceException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class TerminalServer implements Terminal {
+    private static TerminalServer instance;
+    Map<Integer, ClientAccount> accountMap;
+
+    private TerminalServer() {
+
+        accountMap = new HashMap<>();
+
+        ClientAccount account1 = new ClientAccount();
+        account1.plusBalance(0);
+
+        ClientAccount account2 = new ClientAccount();
+        account2.plusBalance(100000);
+
+        ClientAccount account3 = new ClientAccount();
+        account3.plusBalance(5000000);
+
+        accountMap.put(111, account1);
+        accountMap.put(222, account2);
+        accountMap.put(333, account3);
+    }
+
+    public static TerminalServer getInstance() {
+        if (instance == null) {
+            instance = new TerminalServer();
+        }
+        return instance;
+    }
+
+    @Override
+    public long checkAccount(ClientAccount clientAccount) {
+        return clientAccount.getBalance();
+    }
+
+    @Override
+    public void plusBalance(ClientAccount clientAccount, long sum) {
+        clientAccount.plusBalance(sum);
+    }
+
+    @Override
+    public void minusBalance(ClientAccount clientAccount, long sum) throws AccountBalanceException {
+        clientAccount.minusBalance(sum);
+    }
+
+    public ClientAccount getClientByPIN(Integer pin) {
+        return accountMap.get(pin);
+    }
+
+}
