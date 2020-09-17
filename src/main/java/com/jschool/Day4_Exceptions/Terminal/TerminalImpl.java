@@ -1,11 +1,11 @@
 package com.jschool.Day4_Exceptions.Terminal;
 
 import com.jschool.Day4_Exceptions.ClientAccount;
-import com.jschool.Day4_Exceptions.Messages;
+import com.jschool.Day4_Exceptions.Utils.Messages;
 import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountBalanceException;
 import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountExceptions;
 import com.jschool.Day4_Exceptions.MyExceptions.TerminalException.TerminalAmountException;
-import com.jschool.Day4_Exceptions.PinValidator;
+import com.jschool.Day4_Exceptions.Utils.PinValidator;
 
 import java.io.BufferedReader;
 import java.io.IOException;

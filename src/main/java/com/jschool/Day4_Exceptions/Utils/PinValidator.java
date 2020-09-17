@@ -1,5 +1,6 @@
-package com.jschool.Day4_Exceptions;
+package com.jschool.Day4_Exceptions.Utils;
 
+import com.jschool.Day4_Exceptions.ClientAccount;
 import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountLockedException;
 import com.jschool.Day4_Exceptions.MyExceptions.AccountException.InvalidPinException;
 import com.jschool.Day4_Exceptions.Terminal.TerminalServer;

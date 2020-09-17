@@ -1,4 +1,4 @@
-package com.jschool.Day4_Exceptions;
+package com.jschool.Day4_Exceptions.Utils;
 
 /**
  * Улититарный класс, реализующий отражение сообщений на клиенте.
