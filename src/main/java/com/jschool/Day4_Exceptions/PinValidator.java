@@ -19,6 +19,14 @@ public class PinValidator {
         errPINCounter = 0;
     }
 
+    /**
+     * Метод выполняет проверку наличия клиента по введенному ПИН-коду и временную блокировку в случае некорректного ввода
+     *
+     * @param pin - ПИН-код, для которого выполняется валидация.
+     * @return - объект счета клиента, для введенного пин-кода
+     * @throws InvalidPinException    - ошибка некорректного ввода ПИН-кода
+     * @throws AccountLockedException - ошибка, возникающая при превышении доступного кол-во ввода некорректного пин-кода
+     */
     public ClientAccount validatePIN(Integer pin) throws InvalidPinException, AccountLockedException {
         ClientAccount clientAccount = terminalServer.getClientByPIN(pin);
 
@@ -26,7 +34,7 @@ public class PinValidator {
             if (clientAccount == null) {
                 errPINCounter++;
 
-                if (errPINCounter >= PIN_LIMIT -1) {
+                if (errPINCounter >= PIN_LIMIT - 1) {
                     blockTime = new Date(new Date().getTime() + TIME_DELAY);
                     errPINCounter = 0;
                 }

@@ -11,6 +11,9 @@ public class TerminalServer implements Terminal {
     private static TerminalServer instance;
     Map<Integer, ClientAccount> accountMap;
 
+    /**
+     * При старте сервера, выполняется инициализация клиентской базы.
+     */
     private TerminalServer() {
 
         accountMap = new HashMap<>();

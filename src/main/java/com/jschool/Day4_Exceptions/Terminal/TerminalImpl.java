@@ -15,6 +15,9 @@ public class TerminalImpl implements Terminal {
     private final TerminalServer server = TerminalServer.getInstance();
     private final PinValidator pinValidator = new PinValidator(server);
 
+    /**
+     * Реализация бизнес-логики работы терминала
+     */
     public void startTerminal() {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {

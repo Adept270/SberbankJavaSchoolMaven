@@ -21,6 +21,11 @@ public class ClientAccount {
         setBalance(getBalance() + sum);
     }
 
+    /**
+     *
+     * @param sum - сумма, запрошенная клиентом к выдаче
+     * @throws AccountBalanceException - исключение при превышении остатка по счету
+     */
     public void minusBalance(int sum) throws AccountBalanceException {
 
         if (getBalance() - sum < 0) {
