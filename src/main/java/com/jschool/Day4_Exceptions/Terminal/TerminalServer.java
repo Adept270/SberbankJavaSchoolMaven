@@ -19,10 +19,10 @@ public class TerminalServer implements Terminal {
         account1.plusBalance(0);
 
         ClientAccount account2 = new ClientAccount();
-        account2.plusBalance(100000);
+        account2.plusBalance(100);
 
         ClientAccount account3 = new ClientAccount();
-        account3.plusBalance(5000000);
+        account3.plusBalance(500);
 
         accountMap.put(111, account1);
         accountMap.put(222, account2);
@@ -37,17 +37,17 @@ public class TerminalServer implements Terminal {
     }
 
     @Override
-    public long checkAccount(ClientAccount clientAccount) {
+    public int checkAccount(ClientAccount clientAccount) {
         return clientAccount.getBalance();
     }
 
     @Override
-    public void plusBalance(ClientAccount clientAccount, long sum) {
+    public void plusBalance(ClientAccount clientAccount, int sum) {
         clientAccount.plusBalance(sum);
     }
 
     @Override
-    public void minusBalance(ClientAccount clientAccount, long sum) throws AccountBalanceException {
+    public void minusBalance(ClientAccount clientAccount, int sum) throws AccountBalanceException {
         clientAccount.minusBalance(sum);
     }
 

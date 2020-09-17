@@ -5,9 +5,9 @@ import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountBalanceE
 
 
 public interface Terminal {
-    long checkAccount(ClientAccount clientAccount);
+    int checkAccount(ClientAccount clientAccount);
 
-    public void plusBalance(ClientAccount clientAccount, long sum);
+    public void plusBalance(ClientAccount clientAccount, int sum);
 
-    public void minusBalance(ClientAccount clientAccount, long sum) throws AccountBalanceException;
+    public void minusBalance(ClientAccount clientAccount, int sum) throws AccountBalanceException;
 }

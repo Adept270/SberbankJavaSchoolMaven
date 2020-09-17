@@ -3,6 +3,7 @@ package com.jschool.Day4_Exceptions.Terminal;
 import com.jschool.Day4_Exceptions.ClientAccount;
 import com.jschool.Day4_Exceptions.Messages;
 import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountBalanceException;
+import com.jschool.Day4_Exceptions.MyExceptions.AccountException.AccountExceptions;
 import com.jschool.Day4_Exceptions.MyExceptions.TerminalException.TerminalAmountException;
 import com.jschool.Day4_Exceptions.PinValidator;
 
@@ -15,48 +16,76 @@ public class TerminalImpl implements Terminal {
     private final PinValidator pinValidator = new PinValidator(server);
 
     public void startTerminal() {
-        System.out.println("Введите ПИН-код для выполнения операции." +
-                "Для выхода из терминала, нажмите Q.");
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             while (true) {
-                String s = reader.readLine().trim();
-                if (isPIN(s)) {
-                    ClientAccount clientAccount = pinValidator.validatePIN(Integer.parseInt(s));
 
-                    System.out.println("Добро пожаловать!");
-                    System.out.println("Для пополнения счета укажите +");
-                    System.out.println("Для снятия наличных, укажите -");
-                    System.out.println("Для запроса баланса, укажите 0");
-                    System.out.println("Для выхода из терминала, нажмите Q.");
+                Messages.printConsoleMessage("Для выполнения операции, введите ПИН-код.");
+
+                String s = reader.readLine().trim();
+                ClientAccount clientAccount = null;
+
+                if (validateInt(s)) {
+                    try {
+                        clientAccount = pinValidator.validatePIN(Integer.parseInt(s));
+                    } catch (AccountExceptions e) {
+                        Messages.consoleExceptionPrinter(e);
+                        continue;
+                    }
+
+                    Messages.printConsoleMessage("Добро пожаловать! \nДля пополнения счета укажите + \n" +
+                            "Для снятия наличных, укажите -\nДля запроса баланса, укажите 0\n" +
+                            "Для выхода из терминала, нажмите q.");
 
                     String clientAction = reader.readLine().trim();
 
                     switch (clientAction) {
                         case "+": {
-                            //TODO
+                            int intSumPlus = 0;
+                            Messages.printConsoleMessage("Введите сумму для пополнения счета:");
+                            String stringSum = reader.readLine();
+
+                            if (validateInt(stringSum)) {
+                                intSumPlus = Integer.parseInt(stringSum);
+                                clientAccount.plusBalance(intSumPlus);
+                                Messages.printConsoleMessage("Счет по полнен на " + intSumPlus + " едениц.");
+                            } else {
+                                Messages.printConsoleMessage("Сумма не распознана. Попробуйте выполнить операцию заново");
+                            }
                             break;
                         }
                         case "-": {
-                            //TODO:
-                            System.out.println("описать");
+                            int intSumMinus = 0;
+                            Messages.printConsoleMessage("Введите сумму для снятия:");
+                            String stringSum = reader.readLine();
+
+                            if (validateInt(stringSum)) {
+                                intSumMinus = Integer.parseInt(stringSum);
+
+                                try {
+                                    clientAccount.minusBalance(intSumMinus);
+                                    Messages.printConsoleMessage("Списано " + intSumMinus + " едениц.");
+                                } catch (AccountBalanceException e) {
+                                    Messages.consoleExceptionPrinter(e);
+                                }
+
+                            } else {
+                                Messages.printConsoleMessage("Сумма не распознана. Попробуйте выполнить операцию заново");
+                            }
                             break;
                         }
                         case "0": {
-                            //TODO
-                            System.out.println("Баланс");
-                        }
-                        case "Q": {
+                            Messages.printConsoleMessage("Ваш баланс: " + clientAccount.getBalance() + " едениц.");
                             break;
                         }
                         default:
-                            System.out.println("Символ не распознан.");
-
+                            Messages.printConsoleMessage("Символ не распознан.");
+                            break;
                     }
 
                 } else {
                     Messages.printConsoleMessage("ПИН-код должен содержать только целые положительные числа. \n" +
-                            "Введите код повторно. Для выхода из терминала, нажмите Q.");
+                            "Введите код повторно.");
                 }
             }
         } catch (IOException e) {
@@ -64,17 +93,17 @@ public class TerminalImpl implements Terminal {
         }
     }
 
-    private static boolean isPIN(String s) {
+    private static boolean validateInt(String s) {
         return s.matches("[0-9]+");
     }
 
     @Override
-    public long checkAccount(ClientAccount clientAccount) {
+    public int checkAccount(ClientAccount clientAccount) {
         return server.checkAccount(clientAccount);
     }
 
     @Override
-    public void plusBalance(ClientAccount clientAccount, long sum) {
+    public void plusBalance(ClientAccount clientAccount, int sum) {
         try {
             checkAmount(sum);
         } catch (TerminalAmountException e) {
@@ -84,7 +113,7 @@ public class TerminalImpl implements Terminal {
     }
 
     @Override
-    public void minusBalance(ClientAccount clientAccount, long sum) {
+    public void minusBalance(ClientAccount clientAccount, int sum) {
         try {
             checkAmount(sum);
             server.minusBalance(clientAccount, sum);
@@ -93,7 +122,7 @@ public class TerminalImpl implements Terminal {
         }
     }
 
-    private void checkAmount(long sum) throws TerminalAmountException {
+    private void checkAmount(int sum) throws TerminalAmountException {
         if ((sum % 100) > 0) throw new TerminalAmountException("Для выполнения операции, введите сумму, кратную 100");
     }
 }

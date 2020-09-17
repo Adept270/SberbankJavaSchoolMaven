@@ -26,7 +26,7 @@ public class PinValidator {
             if (clientAccount == null) {
                 errPINCounter++;
 
-                if (errPINCounter >= PIN_LIMIT) {
+                if (errPINCounter >= PIN_LIMIT -1) {
                     blockTime = new Date(new Date().getTime() + TIME_DELAY);
                     errPINCounter = 0;
                 }
