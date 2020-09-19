@@ -19,6 +19,7 @@ public class ClientAccount {
 
     public void plusBalance(int sum) {
         setBalance(getBalance() + sum);
+
     }
 
     /**
