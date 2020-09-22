@@ -11,12 +11,12 @@ public class SpyDeAnon {
      *
      * @param clazz - класс, все методы которого будут выведены на консоль
      */
-    public static void getAllMethodsRec(Class clazz) {
+    public static void getAllMethodsRec(Class<?> clazz) {
         for (Method method : clazz.getDeclaredMethods()) {
             System.out.println(method.getName());
         }
 
-        Class superclass = clazz.getSuperclass();
+        Class<?> superclass = clazz.getSuperclass();
         if (superclass != null) {
             getAllMethodsRec(superclass);
         }
@@ -28,7 +28,7 @@ public class SpyDeAnon {
      *
      * @param clazz - класс, переданный для анализа
      */
-    public static void getClassGetters(Class clazz) {
+    public static void getClassGetters(Class<?> clazz) {
 
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.getName().startsWith("get") && method.getParameterTypes().length == 0) {
