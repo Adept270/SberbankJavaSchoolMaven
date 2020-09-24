@@ -6,8 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SberbankJavaSchoolMaven" />
+        <module name="Photo-services" />
+        <module name="Video-services" />
+        <module name="Secure-service" />
+        <module name="Communicate-service" />
+        <module name="Feed-service" />
+        <module name="Profile" />
+        <module name="Search-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Search-Service" target="1.8" />
+      <module name="Security" target="1.8" />
+      <module name="Сommunicate-service" target="1.5" />
+      <module name="Сommunicate-Servise" target="1.5" />
+      <module name="Сomunicate-service" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

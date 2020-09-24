@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Communicate-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Communicate-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Feed-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Feed-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/Photo-services/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/Photo-services/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/Video-services/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/Video-services/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Profile/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Profile/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Search-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Search-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Secure-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/Secure-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Day6_SocialNet/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
 </project>

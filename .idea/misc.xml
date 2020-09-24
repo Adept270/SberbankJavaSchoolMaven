@@ -5,7 +5,19 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/SocialNet/pom.xml" />
+        <option value="$PROJECT_DIR$/Day6_SocialNet/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/Day6_SocialNet/Сommunicate-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Day6_SocialNet/Сomunicate-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Profile/pom.xml" />
+        <option value="$PROJECT_DIR$/SearchService/pom.xml" />
+        <option value="$PROJECT_DIR$/SocialNet/Profil/pom.xml" />
+        <option value="$PROJECT_DIR$/Сommunicate-Servise/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
