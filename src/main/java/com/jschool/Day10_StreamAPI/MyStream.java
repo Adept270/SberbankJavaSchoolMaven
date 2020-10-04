@@ -1,4 +1,4 @@
-package com.jschool.Day10_StreamAPI.MyStreamImpl;
+package com.jschool.Day10_StreamAPI;
 
 import java.util.*;
 import java.util.function.Consumer;

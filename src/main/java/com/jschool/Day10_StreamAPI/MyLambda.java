@@ -1,4 +1,4 @@
-package com.jschool.Day10_StreamAPI.MyStreamImpl;
+package com.jschool.Day10_StreamAPI;
 
 /**
  * Опишите функциональный интерфейс, который позволит выполнить следующий код:

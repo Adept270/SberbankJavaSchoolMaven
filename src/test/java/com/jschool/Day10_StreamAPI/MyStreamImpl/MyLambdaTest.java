@@ -1,6 +1,7 @@
 package com.jschool.Day10_StreamAPI.MyStreamImpl;
 
 
+import com.jschool.Day10_StreamAPI.MyLambda;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
