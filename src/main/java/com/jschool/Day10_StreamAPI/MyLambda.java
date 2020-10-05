@@ -1,6 +1,7 @@
 package com.jschool.Day10_StreamAPI;
 
 /**
+ * Задание № 2
  * Опишите функциональный интерфейс, который позволит выполнить следующий код:
  * MyLambda<String> myLambda1 = (a, b) -> a + b;
  * MyLambda<Integer> myLambda2 = (a, b) -> a + b;
