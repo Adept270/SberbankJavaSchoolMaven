@@ -11,9 +11,9 @@ public class Tribonacci {
 
     public static void main(String[] args) {
         List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5);
-        integerList.stream().forEach(Tribonacci::generateTribonacci);
-    }
+        integerList.forEach(Tribonacci::generateTribonacci);
 
+    }
 
     public static void generateTribonacci(Integer n) {
         Integer[] arr = new Integer[n];
