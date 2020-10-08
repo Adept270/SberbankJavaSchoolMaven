@@ -1,8 +1,11 @@
 package com.jschool.Day8_Serialization.Cashe;
 
 import java.io.*;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -10,7 +13,7 @@ import java.util.zip.GZIPOutputStream;
 
 public class CacheProxy implements InvocationHandler {
     private Object delegate;
-    private Map<Method, Object> cachedResult = new HashMap<>();
+    private Map<Integer, Object> cachedResult = new HashMap<>();
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -22,9 +25,40 @@ public class CacheProxy implements InvocationHandler {
             return method.invoke(delegate);
     }
 
-    private Object inMemoryCache(Method method, Object[] args) {
-        //if (cachedResult.containsKey(method))
-        return null;
+    private Object memoryCache(Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
+        Integer hashCode = method.hashCode() + Arrays.hashCode(args);
+        if (cachedResult.containsKey(hashCode)) {
+            return cachedResult.get(hashCode);
+        } else {
+            Object result = method.invoke(delegate, args);
+            cachedResult.put((method.hashCode() + Arrays.hashCode(args)), result);
+            return result;
+        }
+    }
+
+    private Object fileCache(Method method, Object[] args) throws IOException, InvocationTargetException, IllegalAccessException {
+        Object result;
+        Cache annotation = method.getAnnotation(Cache.class);
+
+        File file = File.createTempFile(annotation.fileNamePrefix(), "");
+
+        if (file.createNewFile()) {
+            //Если файл создан - получим и сохраним результат
+            result = method.invoke(delegate, args);
+
+            if (annotation.zip())
+                saveToZIP(result, file);
+            else
+                saveToFile(result, file);
+        } else {
+            //Если файл существует - получим хранимое значение
+            if (annotation.zip()) {
+                result = getFromZIP(file);
+            } else {
+                result = getFromFile(file);
+            }
+        }
+        return result;
     }
 
     private void saveToFile(Object obj, File file) {
