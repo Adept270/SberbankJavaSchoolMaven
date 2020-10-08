@@ -1,7 +1,6 @@
 package com.jschool.Day8_Serialization.Cashe;
 
 import java.io.*;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,19 +11,47 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class CacheProxy implements InvocationHandler {
-    private Object delegate;
-    private Map<Integer, Object> cachedResult = new HashMap<>();
+    private final Object delegate;
+    private final Map<Integer, Object> cachedResult = new HashMap<>();
 
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-        if (method.isAnnotationPresent(Cache.class)) {
-            //вызвать поиск в кэше
-            return null;
-        } else
-            return method.invoke(delegate);
+    public <T> CacheProxy(T delegate) {
+        this.delegate = delegate;
     }
 
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws IOException, InvocationTargetException, IllegalAccessException {
+
+        Object result = null;
+        Cache annotation = method.getAnnotation(Cache.class);
+
+        if (annotation != null) {
+            switch (annotation.cacheType()) {
+                case FILE:
+                    result = fileCache(method, args);
+                    break;
+                case IN_MEMORY:
+                    result = memoryCache(method, args);
+                    break;
+                default:
+                    break;
+            }
+        } else
+            result = method.invoke(delegate);
+
+        return result;
+    }
+
+
+    /**
+     * Возвращает результат работы вызванного метода из кеша при кешировании в памяти.
+     * При наличии кешированного значения - из кеша. Иначе -
+     * в результате вызова метода напрямую. Полученный при этом результат работы - сохраняется в кеше.
+     *
+     * @param args - параметры вызванного метода
+     * @return
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     private Object memoryCache(Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
         Integer hashCode = method.hashCode() + Arrays.hashCode(args);
         if (cachedResult.containsKey(hashCode)) {
@@ -36,6 +63,18 @@ public class CacheProxy implements InvocationHandler {
         }
     }
 
+    /**
+     * Возвращает результат работы вызванного метода из кеша при кешировании в файл.
+     * При наличии кешированного значения - из кеша. Иначе -
+     * в результате вызова метода напрямую. Полученный при этом результат работы - сохраняется в кеше.
+     *
+     * @param method - вызванный метод
+     * @param args   - параметры вызванного метода
+     * @return - результат работы @param method.
+     * @throws IOException,
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     private Object fileCache(Method method, Object[] args) throws IOException, InvocationTargetException, IllegalAccessException {
         Object result;
         Cache annotation = method.getAnnotation(Cache.class);
@@ -61,6 +100,12 @@ public class CacheProxy implements InvocationHandler {
         return result;
     }
 
+    /**
+     * Вспомогательный метод, для сохранения результата работы функции в файл
+     *
+     * @param obj  - сохраняемый объект
+     * @param file - файл-получатель результата работы метода
+     */
     private void saveToFile(Object obj, File file) {
         try (FileOutputStream fos = new FileOutputStream(file);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -74,6 +119,12 @@ public class CacheProxy implements InvocationHandler {
         }
     }
 
+    /**
+     * Вспомогательный метод, для записи результата работы функции в файл
+     *
+     * @param file - файл-источник результата работы метода
+     * @return - сохраненный результат работы метода
+     */
     private Object getFromFile(File file) {
         try (FileInputStream fis = new FileInputStream(file);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -88,6 +139,12 @@ public class CacheProxy implements InvocationHandler {
         return null;
     }
 
+    /**
+     * Вспомогательный метод, для получения результата работы функции из архива
+     *
+     * @param file - файл-источник
+     * @return - сохраненный в файле результат работы метода
+     */
     private Object getFromZIP(File file) {
         try (FileInputStream fis = new FileInputStream(file);
              GZIPInputStream zipIs = new GZIPInputStream(fis);
@@ -105,6 +162,12 @@ public class CacheProxy implements InvocationHandler {
         return null;
     }
 
+    /**
+     * Вспомогательный метод, для записи результата работы функции в архив
+     *
+     * @param obj  - сохраняемый результат
+     * @param file - путь к файлу-получателю
+     */
     private void saveToZIP(Object obj, File file) {
         try (FileOutputStream fos = new FileOutputStream(file);
              GZIPOutputStream zipOs = new GZIPOutputStream(fos);
