@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/Communicate-service" />
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/Feed-service" />
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/Photo-services" />
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/FileExchange-Service/Video-services" />
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/Profile" />
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/Search-service" />
+    <file type="web" url="file://$PROJECT_DIR$/Day6_SocialNet/Secure-service" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
