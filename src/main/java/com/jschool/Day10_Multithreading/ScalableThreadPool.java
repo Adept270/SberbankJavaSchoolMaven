@@ -49,20 +49,19 @@ public class ScalableThreadPool implements ThreadPool {
             Job newJob = new Job();
             jobs.add(newJob);
             newJob.start();
-            System.out.println("+ Увеличено");
         }
     }
 
     private void analyzeDecreaseJobs() {
         if (tasksQueue.size() < jobs.size() && tasksQueue.size() > minJobCount) {
 
-            Optional<Thread> first = jobs.stream().filter(job -> !job.isAlive()).findFirst();
+            Optional<Thread> first = jobs.parallelStream().filter(job -> !job.isAlive()).findFirst();
 
             if (first.isPresent()) {
                 Thread thread = first.get();
                 thread.interrupt();
                 jobs.remove(thread);
-                System.out.println("- Уменьшено");
+
             }
 
         }
