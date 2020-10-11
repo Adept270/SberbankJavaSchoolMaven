@@ -52,13 +52,14 @@ public class FixedThreadPoolTest {
 
         };
 
-        ThreadPool pool = new FixedThreadPool(4);
+        ThreadPool pool = new FixedThreadPool(20);
+        pool.start();
         pool.execute(r1);
         pool.execute(r2);
         pool.execute(r3);
         pool.execute(r4);
 
-        pool.start();
+        //pool.start();
 
         try {
             Thread.sleep(10000);
