@@ -2,16 +2,17 @@ package com.jschool.Day10_Multithreading;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FixedThreadPool implements ThreadPool {
-    private final BlockingQueue<Runnable> tasksQueue;
+    private final Queue<Runnable> tasksQueue;
     private final List<Thread> jobs;
     private volatile boolean doWork = false;
 
     public FixedThreadPool(int threadCount) {
-        tasksQueue = new ArrayBlockingQueue<>(threadCount, true);
+        tasksQueue = new ConcurrentLinkedQueue<>();
+
         jobs = new ArrayList<>(threadCount);
         for (int i = 0; i <= threadCount; i++) {
             jobs.add(new Job());
