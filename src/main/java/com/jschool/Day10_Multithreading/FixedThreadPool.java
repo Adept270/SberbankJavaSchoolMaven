@@ -37,30 +37,33 @@ public class FixedThreadPool implements ThreadPool {
         @Override
         public void run() {
 
-            while (!doWork) {
-                synchronized (tasksQueue) {
-                    try {
-                        tasksQueue.wait();
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            }
+            while (!Thread.currentThread().isInterrupted()) {
 
-            try {
-                Runnable runnable = tasksQueue.poll();
-
-                if (runnable == null) {
+                while (!doWork) {
                     synchronized (tasksQueue) {
-                        tasksQueue.wait();
-                        doWork = false;
+                        try {
+                            tasksQueue.wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
                     }
-                } else {
-                    runnable.run();
                 }
 
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                try {
+                    Runnable runnable = tasksQueue.poll();
+
+                    if (runnable == null) {
+                        synchronized (tasksQueue) {
+                            tasksQueue.wait();
+                            doWork = false;
+                        }
+                    } else {
+                        runnable.run();
+                    }
+
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }

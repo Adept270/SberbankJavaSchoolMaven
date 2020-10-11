@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Stream;
 
 public class ScalableThreadPool implements ThreadPool {
     private final int minJobCount;
@@ -55,15 +56,14 @@ public class ScalableThreadPool implements ThreadPool {
     private void analyzeDecreaseJobs() {
         if (tasksQueue.size() < jobs.size() && tasksQueue.size() > minJobCount) {
 
-            Optional<Thread> first = jobs.parallelStream().filter(job -> !job.isAlive()).findFirst();
+            Optional<Thread> first = jobs.parallelStream().filter(job -> Thread.State.RUNNABLE.equals(
+                    job.getState())).findFirst();
 
             if (first.isPresent()) {
                 Thread thread = first.get();
                 thread.interrupt();
                 jobs.remove(thread);
-
             }
-
         }
     }
 
@@ -71,30 +71,33 @@ public class ScalableThreadPool implements ThreadPool {
         @Override
         public void run() {
 
-            while (!doWork) {
-                synchronized (tasksQueue) {
-                    try {
-                        tasksQueue.wait();
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            }
-
-            try {
-                Runnable runnable = tasksQueue.poll();
+            while (!Thread.currentThread().isInterrupted()) {
                 analyzeDecreaseJobs();
 
-                if (runnable == null) {
+                while (!doWork) {
                     synchronized (tasksQueue) {
-                        doWork = false;
-                        tasksQueue.wait();
+                        try {
+                            tasksQueue.wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
                     }
-                } else {
-                    runnable.run();
                 }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+
+                try {
+                    Runnable runnable = tasksQueue.poll();
+
+                    if (runnable == null) {
+                        synchronized (tasksQueue) {
+                            doWork = false;
+                            tasksQueue.wait();
+                        }
+                    } else {
+                        runnable.run();
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }

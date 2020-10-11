@@ -52,14 +52,45 @@ public class FixedThreadPoolTest {
 
         };
 
-        ThreadPool pool = new FixedThreadPool(20);
+        Runnable r5 = () -> {
+            System.out.println("Start 5");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Finish 5");
+
+        };
+
+        Runnable r6 = () -> {
+            System.out.println("Start 6");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Finish 6");
+
+        };
+
+
+
+        ThreadPool pool = new ScalableThreadPool(1, 10);
         pool.start();
         pool.execute(r1);
         pool.execute(r2);
         pool.execute(r3);
         pool.execute(r4);
+        pool.execute(r5);
 
-        //pool.start();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        pool.execute(r6);
 
         try {
             Thread.sleep(10000);
