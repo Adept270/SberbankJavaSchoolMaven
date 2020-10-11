@@ -6,12 +6,11 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FixedThreadPool implements ThreadPool {
-    private final Queue<Runnable> tasksQueue;
+    private final Queue<Runnable> tasksQueue = new ConcurrentLinkedQueue<>();
     private final List<Thread> jobs;
     private volatile boolean doWork = false;
 
     public FixedThreadPool(int threadCount) {
-        tasksQueue = new ConcurrentLinkedQueue<>();
 
         jobs = new ArrayList<>(threadCount);
         for (int i = 0; i <= threadCount; i++) {
@@ -49,8 +48,7 @@ public class FixedThreadPool implements ThreadPool {
             }
 
             try {
-                Runnable runnable = null;
-                runnable = tasksQueue.poll();
+                Runnable runnable = tasksQueue.poll();
 
                 if (runnable == null) {
                     synchronized (tasksQueue) {
