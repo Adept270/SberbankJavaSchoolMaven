@@ -1,8 +1,6 @@
-package com.jschool.Day10_Multithreading;
+package com.jschool.Day11_Multithreading;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class FixedThreadPoolTest {
 

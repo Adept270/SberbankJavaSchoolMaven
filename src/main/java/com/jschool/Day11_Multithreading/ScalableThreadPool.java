@@ -1,11 +1,10 @@
-package com.jschool.Day10_Multithreading;
+package com.jschool.Day11_Multithreading;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Stream;
 
 public class ScalableThreadPool implements ThreadPool {
     private final int minJobCount;

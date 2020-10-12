@@ -1,4 +1,4 @@
-package com.jschool.Day10_Multithreading;
+package com.jschool.Day11_Multithreading;
 
 import java.util.ArrayList;
 import java.util.List;
