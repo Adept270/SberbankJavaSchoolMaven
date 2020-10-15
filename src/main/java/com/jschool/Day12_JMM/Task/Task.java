@@ -1,4 +1,4 @@
-package com.jschool.Day12_JMM;
+package com.jschool.Day12_JMM.Task;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
