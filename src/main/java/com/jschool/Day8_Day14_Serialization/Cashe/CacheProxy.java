@@ -1,18 +1,18 @@
-package com.jschool.Day8_Serialization.Cashe;
+package com.jschool.Day8_Day14_Serialization.Cashe;
 
 import java.io.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class CacheProxy implements InvocationHandler {
     private final Object delegate;
-    private final Map<Integer, Object> cachedResult = new HashMap<>();
+    private final ConcurrentMap<Integer, Object> cachedResult = new ConcurrentHashMap<>();
 
     public <T> CacheProxy(T delegate) {
         this.delegate = delegate;
@@ -48,9 +48,8 @@ public class CacheProxy implements InvocationHandler {
      * в результате вызова метода напрямую. Полученный при этом результат работы - сохраняется в кеше.
      *
      * @param args - параметры вызванного метода
-     * @return
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws - InvocationTargetException
+     * @throws - IllegalAccessException
      */
     private Object memoryCache(Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
         Integer hashCode = method.hashCode() + Arrays.hashCode(args);
@@ -71,9 +70,9 @@ public class CacheProxy implements InvocationHandler {
      * @param method - вызванный метод
      * @param args   - параметры вызванного метода
      * @return - результат работы @param method.
-     * @throws IOException,
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
+     * @throws - IOException,
+     * @throws - InvocationTargetException
+     * @throws - IllegalAccessException
      */
     private Object fileCache(Method method, Object[] args) throws IOException, InvocationTargetException, IllegalAccessException {
         Object result;
